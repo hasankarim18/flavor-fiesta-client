@@ -1,0 +1,15 @@
+.featured-item{
+    background-image: url('/assets/home/featured.jpg');
+}
+
+.featured-item::after{
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: 10;
+    background-color: black;
+    opacity:0.5;
+    left: 0;
+    top:0;
+}
