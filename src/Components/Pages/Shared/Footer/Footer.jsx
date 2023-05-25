@@ -6,7 +6,7 @@ const Footer = () => {
     const year = date.getFullYear();
 
     return (
-      <footer>
+      <footer className="mt-20" >
         <div>
           <div className="footer p-10 bg-neutral text-neutral-content">
             <div>

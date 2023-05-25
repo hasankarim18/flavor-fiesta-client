@@ -1,11 +1,12 @@
 
 
 .navbar-scroll {
-    @apply navbar bg-black text-white  fixed z-10  bg-opacity-30 max-w-screen-xl transition-all duration-500 mx-auto ;
+    @apply navbar bg-black text-white  fixed   bg-opacity-30 max-w-screen-xl transition-all duration-500 mx-auto ;
+    z-index: 99999;
    
 }
 
 .navbar-scroll-active{
-    @apply navbar bg-black text-white  fixed z-10  bg-opacity-70 max-w-screen-xl transition-all duration-500 mx-auto w-full;
-    
+    @apply navbar bg-black text-white  fixed   bg-opacity-70 max-w-screen-xl transition-all duration-500 mx-auto w-full;
+    z-index: 99999;
 }
