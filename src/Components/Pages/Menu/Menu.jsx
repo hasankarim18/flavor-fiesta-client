@@ -46,9 +46,10 @@ const Menu = () => {
         {/* <SectionTitle subHeading="Don't miss " heading="Deserts" /> */}
         {!dataLoading ? (
           <MenuCategory
+           
             coverImg="/assets/menu/dessert-bg.jpeg"
             items={deserts}
-            title="deserts"
+            title="dessert"
             description="Deserts, vast and arid landscapes, captivate with their harsh beauty and unforgiving nature."
           />
         ) : (
@@ -59,10 +60,10 @@ const Menu = () => {
       <div className="mt-20">
         {/* <SectionTitle subHeading="Don't miss " heading="Deserts" /> */}
         {!dataLoading ? (
-          <MenuCategory
+          <MenuCategory           
             coverImg="/assets/menu/pizza-bg.jpg"
             items={pizza}
-            title="Pizzas"
+            title="pizza"
             description="Pizzas, vast and arid landscapes, captivate with their harsh beauty and unforgiving nature."
           />
         ) : (
@@ -76,7 +77,7 @@ const Menu = () => {
           <MenuCategory
             coverImg="/public/assets/menu/salad-bg.jpg"
             items={salad}
-            title="Salad"
+            title="salad"
             description="Salad, vast and arid landscapes, captivate with their harsh beauty and unforgiving nature."
           />
         ) : (
@@ -90,7 +91,7 @@ const Menu = () => {
           <MenuCategory
             coverImg="/public/assets/menu/soup-bg.jpg"
             items={soup}
-            title="Soup"
+            title="soup"
             description="Soup, vast and arid landscapes, captivate with their harsh beauty and unforgiving nature."
           />
         ) : (

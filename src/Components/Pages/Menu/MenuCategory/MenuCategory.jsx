@@ -1,11 +1,14 @@
+import { Link } from "react-router-dom";
 import MenuItem from "../../../Utils/MenuItem/MenuItem";
 import Cover from "../../Shared/Cover/Cover";
 
 
 const MenuCategory = ({ items, title, coverImg, description }) => {
 
+ 
+
     const cimg = coverImg || "/assets/menu/banner3.jpg";
-    console.log('deserts:',items);
+ 
 
     let showItems = []
 
@@ -29,6 +32,14 @@ const MenuCategory = ({ items, title, coverImg, description }) => {
         {showItems.map((item) => (
           <MenuItem key={item._id} item={item}></MenuItem>
         ))}
+      </div>
+      <div className="text-center">
+        <Link
+          to={`/order/${title}`}
+          className="btn btn-outline border-0 border-b-4 mt-8"
+        >
+          Order Now
+        </Link>
       </div>
     </div>
   );

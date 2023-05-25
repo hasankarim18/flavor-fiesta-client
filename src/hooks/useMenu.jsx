@@ -7,20 +7,21 @@ const useMenu = () => {
    const [dataLoading, setDataLoading] = useState(true)
    const [loadingError, setLoadingError] = useState(false)
 
+    const baseUrl = import.meta.env.baseUrl
+
         useEffect(() => {
            
-          fetch("/data/menu.json")
+          fetch(`http://localhost:5000/menu`)
             .then((res) => res.json())
-            .then((data) =>{
-              setData(data);
-               setDataLoading(false);
-            }
-            )
-            .catch(error => {
-                 setDataLoading(false);
-                setLoadingError({ error, message: "Menu Loading error" });
+            .then((data) => {
+              setData(data.data);
+              setDataLoading(false);
             })
-        }, []);
+            .catch((error) => {
+              setDataLoading(false);
+              setLoadingError({ error, message: "Menu Loading error" });
+            });
+        }, [baseUrl]);
 
  
     return { data, dataLoading, loadingError };

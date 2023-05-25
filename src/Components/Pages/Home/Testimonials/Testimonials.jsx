@@ -13,18 +13,22 @@ import "swiper/css/navigation";
 // import required modules
 import { Navigation } from "swiper";
 import { useEffect, useState } from "react";
+import baseUrl from "../../../Utils/baseUrl";
 
 
 const Testimonials = () => {
    const [reviews, setReviews] = useState([])
 
-    useEffect(()=> {
-        fetch('/data/reviews.json')
-        .then(res => res.json())
-        .then(data => {
-            setReviews(data)
-        })
-    }, [])
+   const url = baseUrl
+
+
+    useEffect(() => {
+      fetch(`${baseUrl}/reviews`)
+        .then((res) => res.json())
+        .then((data) => {
+          setReviews(data.data);
+        });
+    }, [url]);
 
     return (
       <section className="my-20">
