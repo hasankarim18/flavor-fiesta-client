@@ -8,10 +8,11 @@ const PopularMenu = () => {
    // const [menu, setMenu] = useState([])
 
    const {data, dataLoading} = useMenu();
+  
 
    const menu = data.filter((menu) => menu.category === "popular");
 
-    console.log(dataLoading, menu);
+ 
 
     return (
         <div>

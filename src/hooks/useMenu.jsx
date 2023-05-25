@@ -12,7 +12,7 @@ const useMenu = () => {
           fetch("/data/menu.json")
             .then((res) => res.json())
             .then((data) =>{
-              setData(data.filter((menu) => menu.category === "popular"));
+              setData(data);
                setDataLoading(false);
             }
             )
