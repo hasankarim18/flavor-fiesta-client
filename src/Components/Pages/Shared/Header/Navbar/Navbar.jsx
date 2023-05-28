@@ -1,9 +1,14 @@
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import './Navbar.css'
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { AuthContext } from '../../../../../Provider/AuthProvider';
+import { FaCartArrowDown } from "react-icons/fa";
+
 
 const Navbar = () => {
   const [scrollNav, setScrollNav] = useState(false)
+  const { logout, user, setUser } = useContext(AuthContext);
+  const navigate = useNavigate()
 
 
   useEffect(() => {
@@ -19,6 +24,20 @@ const Navbar = () => {
     }
 
   }, [])
+
+
+  const handleLogout = ()=> {
+ 
+      logout()
+      .then(()=> {
+        setUser(null)
+        console.log('logout success');
+        navigate('/')
+      })
+      .catch(()=> {
+        console.log("logout failed");
+      })
+  }
   
 
 
@@ -26,19 +45,32 @@ const Navbar = () => {
     const navOptions = (
       <>
         <li>
-          <Link to="/" >Home</Link>
+          <Link to="/">Home</Link>
         </li>
         <li>
-          <Link to="/menu" >Our Menu</Link>
+          <Link to="/menu">Our Menu</Link>
         </li>
         <li>
-          <Link to="/order/salad" >Order Food</Link>
+          <Link to="/secret">Secret</Link>
+        </li>
+
+        <li>
+          <Link to="/order/salad">Order Food</Link>
         </li>
         <li>
-          <Link to="/login" >Login</Link>
+          {user ? (
+            <button className="btn btn-ghost" onClick={handleLogout}>
+              Sing Out
+            </button>
+          ) : (
+            <Link to="/login">Login</Link>
+          )}
         </li>
-        
-        
+        <li className="flex items-center text-xl">
+          <Link className="badge badge-secondary " to="/">
+            <FaCartArrowDown className="text-2xl" /> <span>99</span>
+          </Link>
+        </li>
       </>
     );
 

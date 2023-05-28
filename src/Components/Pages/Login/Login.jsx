@@ -1,14 +1,25 @@
 
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import {
   loadCaptchaEnginge,
   LoadCanvasTemplate,
   validateCaptcha,
 } from "react-simple-captcha";
+import { AuthContext } from "../../../Provider/AuthProvider";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Helmet } from "react-helmet-async";
+
+import Swal from "sweetalert2";
 
 const Login = () => {
   const [user_captcha_value, setUser_captcha_value] = useState('')
   const [isCaptchaValid, setIsCaptchaValid] = useState(false)
+  const location = useLocation()
+  const { loginUser } = useContext(AuthContext);
+  const navigate = useNavigate()
+
+
+   let from = location.state?.from?.pathname || "/";
 
 
   useEffect(() => {
@@ -26,7 +37,7 @@ const Login = () => {
    
     const captchaValidation = setTimeout(() => {
       if (validateCaptcha(user_captcha_value, false) === true) {
-        console.log("validate");
+      
         setIsCaptchaValid(true);
       }else {
         setIsCaptchaValid(false);
@@ -48,23 +59,39 @@ const Login = () => {
     const form = event.target 
 
     const email = form.email.value 
-    const password = form.password.value 
-   // const captcha = form.captcha.value
+    const password = form.password.value  
 
-    // if (validateCaptcha(user_captcha_value) == true) {
-    //   alert("Captcha Matched");
-    // } else {
-    //   alert("Captcha Does Not Match");
-    // }
+    
 
+    loginUser(email, password)
+      .then(() => {
+        // Signed in
+      //  const user = userCredential.user;
+       Swal.fire({
+         title: "Successflly logged in",
+       }).then(() => {
+         navigate(from);
+       });
+        
+       
+        // ...
+      })
+      .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        console.log(errorCode, errorMessage);
+        alert('Login Failed')
+      });
 
-    console.log('form submitted',email,password);
 
   };
 
 
     return (
       <div>
+        <Helmet>
+          <title> Login | Flavor Fiesta</title>
+        </Helmet>
         <div className="hero min-h-screen bg-base-200">
           <div className="hero-content justify-center items-center  md:flex-row flex flex-col  ">
             <div className="text-center lg:text-left">
@@ -111,12 +138,12 @@ const Login = () => {
                       <LoadCanvasTemplate />
                     </label>
                     <input
-                       onChange={handleValidateCaptcha}                     
+                      onChange={handleValidateCaptcha}
                       type="text"
                       placeholder="Type the text above"
                       className="input input-bordered"
                       name="captcha"
-                    />                    
+                    />
                   </div>
                   <div className="form-control mt-6">
                     <input
@@ -126,6 +153,15 @@ const Login = () => {
                       value="Login"
                     />
                   </div>
+
+                  <p className="text-xl">
+                    <small>
+                      New Here{" "}
+                      <Link className="text-yellow-500" to="/signup">
+                        Sign up
+                      </Link>
+                    </small>
+                  </p>
                 </div>
               </form>
             </div>

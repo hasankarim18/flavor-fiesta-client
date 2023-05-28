@@ -7,7 +7,9 @@ const useMenu = () => {
    const [dataLoading, setDataLoading] = useState(true)
    const [loadingError, setLoadingError] = useState(false)
 
-    const baseUrl = import.meta.env.baseUrl
+
+   const baseUrl = import.meta.env.VITE_baseURL;
+ //   const baseUrl = import.meta.env.baseUrl
 
         useEffect(() => {
            
