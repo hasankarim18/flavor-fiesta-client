@@ -3,6 +3,7 @@ import './Navbar.css'
 import { Link, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../../../../Provider/AuthProvider';
 import { FaCartArrowDown } from "react-icons/fa";
+import useCart from '../../../../../hooks/useCart';
 
 
 const Navbar = () => {
@@ -10,6 +11,9 @@ const Navbar = () => {
   const { logout, user, setUser } = useContext(AuthContext);
   const navigate = useNavigate()
 
+  const [cart] = useCart();
+
+  const cartData = cart?.data?.data
 
   useEffect(() => {
     const handleScroll = ()=> {
@@ -67,8 +71,9 @@ const Navbar = () => {
           )}
         </li>
         <li className="flex items-center text-xl">
-          <Link className="badge badge-secondary " to="/">
-            <FaCartArrowDown className="text-2xl" /> <span>99</span>
+          <Link to="/dashboard/mycart" className="badge badge-secondary " >
+            <FaCartArrowDown className="text-2xl" />{" "}
+            <span>{cartData?.length}</span>
           </Link>
         </li>
       </>

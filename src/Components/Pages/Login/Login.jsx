@@ -73,8 +73,6 @@ const Login = () => {
          navigate(from);
        });
         
-       
-        // ...
       })
       .catch((error) => {
         const errorCode = error.code;
@@ -147,7 +145,7 @@ const Login = () => {
                   </div>
                   <div className="form-control mt-6">
                     <input
-                      disabled={!isCaptchaValid}
+                    //  disabled={!isCaptchaValid}
                       type="submit"
                       className="btn btn-primary"
                       value="Login"
