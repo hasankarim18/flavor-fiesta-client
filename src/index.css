@@ -2,3 +2,14 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+
+
+#sidebar li a {
+    @apply hover:text-white bg-transparent;
+}
+
+#sidebar a.active {
+  @apply bg-transparent 
+}
+

@@ -1,9 +1,9 @@
-import { Link, Outlet } from "react-router-dom";
-import {  FaCalendarAlt, FaCartArrowDown, FaHamburger, FaHome, FaWallet } from "react-icons/fa";
+import { Link, NavLink, Outlet } from "react-router-dom";
+import {  FaCalendarAlt, FaCalendarCheck, FaCartArrowDown, FaHamburger, FaHome, FaStackExchange, FaWallet } from "react-icons/fa";
 
 const Dashboard = () => {
   return (
-    <div className="bg-gray-200 max-w-screen-xl mx-auto ">
+    <div className="bg-gray-200 max-w-screen-xl mx-auto  ">
       <div className="drawer drawer-mobile">
         <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
         <div className="drawer-content flex flex-col items-center justify-center">
@@ -18,48 +18,66 @@ const Dashboard = () => {
 
         <div className="drawer-side">
           <label htmlFor="my-drawer-2" className="drawer-overlay"></label>
-          <ul className="menu p-4 w-80 bg-base-100 text-base-content">
+          <ul
+            id="sidebar"
+            className="menu bg-aztecGold uppercase flex gap-4 text-xl p-4 w-80  text-base-content"
+          >
             <li>
-              <Link to="/dashboard">
+              <NavLink to="/dashboard/">
                 {" "}
                 <span>
                   <FaHome />{" "}
                 </span>{" "}
-                Home
-              </Link>
+                User Home
+              </NavLink>
             </li>
             <li>
-              <Link to="/dashboard/wallet">
+              <NavLink to="/dashboard/reservation">
                 {" "}
                 <span>
                   <FaCalendarAlt />{" "}
                 </span>{" "}
-                Calender
-              </Link>
+                Reservation
+              </NavLink>
             </li>
             <li>
-              <Link to="/dashboard/mycart">
+              <NavLink to="/dashboard/payment-history">
+                {" "}
+                <span>
+                  <FaWallet />{" "}
+                </span>{" "}
+                payment history
+              </NavLink>
+            </li>
+            <li>
+              <NavLink to="/dashboard/mycart">
                 <span>
                   {" "}
                   <FaCartArrowDown />{" "}
                 </span>{" "}
                 My Cart{" "}
-              </Link>
+              </NavLink>
             </li>
             <li>
-              <Link to="/wallet">
-                {" "}
+              <NavLink to="/dashboard/add-review">
                 <span>
-                  <FaWallet />{" "}
+                  <FaStackExchange />
                 </span>{" "}
-                Wallet
-              </Link>
+                Add Review{" "}
+              </NavLink>
             </li>
+            <li>
+              <NavLink to="/dashboard/my-bookings">
+                <span> <FaCalendarCheck /> </span> MY Booking{" "}
+              </NavLink>
+            </li>
+
+            {/* front end connection below */}
             <li className="divider"></li>
             <li>
-              <Link to="/">
+              <NavLink to="/">
                 <FaHome /> Home
-              </Link>
+              </NavLink>
             </li>
             <li>
               <Link to="/menu">
@@ -68,10 +86,7 @@ const Dashboard = () => {
               </Link>
             </li>
             <li>
-              <Link to="/order/salad">Our Menu</Link>
-            </li>
-            <li>
-              <Link to=""></Link>
+              <NavLink to="/order/salad">Our Menu</NavLink>
             </li>
           </ul>
         </div>

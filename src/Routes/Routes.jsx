@@ -9,7 +9,11 @@ import Secret from "../Components/Pages/Shared/Secret/Secret";
 import PrivateRoutes from "./PrivateRoutes";
 import Dashboard from "../Components/MainLayout/Dashboard";
 import MyCart from "../Components/Pages/Dashboard/MyCart/MyCart";
-import DashboardHome from "../Components/Pages/Dashboard/MyCart/DashboardHome";
+import DashboardHome from "../Components/Pages/Dashboard/DashboardHome/DashboardHome";
+import Reservation from "../Components/Pages/Dashboard/Reservation/Reservation";
+import AddReview from "../Components/Pages/Dashboard/AddReview/AddReview";
+import MyBookings from "../Components/Pages/Dashboard/MyBookings/MyBookings";
+import PaymentHistory from "../Components/Pages/Dashboard/PaymentHistory/PaymentHistory";
 
 const router = createBrowserRouter([
   {
@@ -49,16 +53,32 @@ const router = createBrowserRouter([
   {
     path: "/dashboard",
     element: <Dashboard />,
-    children:[
+    children: [
       {
-        path:"/dashboard",
-        element:<DashboardHome />
+        path: "/dashboard",
+        element: <DashboardHome />,
       },
       {
-        path:'/dashboard/mycart',
-        element:<MyCart />
-      }
-    ]
+        path: "/dashboard/mycart",
+        element: <MyCart />,
+      },
+      {
+        path: "/dashboard/reservation",
+        element: <Reservation />,
+      },
+      {
+        path: "/dashboard/add-review",
+        element: <AddReview />,
+      },
+      {
+        path: "/dashboard/my-bookings",
+        element: <MyBookings />,
+      },
+      {
+        path: "/dashboard/payment-history",
+        element:<PaymentHistory />
+      },
+    ],
   },
 ]);
 
