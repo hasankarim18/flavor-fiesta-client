@@ -10,6 +10,7 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
 
 import Swal from "sweetalert2";
+import SocialLogin from "../Shared/SocialLogin/SocialLogin";
 
 const Login = () => {
   const [user_captcha_value, setUser_captcha_value] = useState('')
@@ -102,8 +103,8 @@ const Login = () => {
             </div>
 
             <div className="card md:w-1/2 w-full  shadow-2xl bg-base-100">
-              <form onSubmit={handleLogin}>
-                <div className="card-body">
+              <div className="card-body">
+                <form onSubmit={handleLogin}>
                   <div className="form-control">
                     <label className="label">
                       <span className="label-text">Email</span>
@@ -145,7 +146,7 @@ const Login = () => {
                   </div>
                   <div className="form-control mt-6">
                     <input
-                    // disabled={!isCaptchaValid}
+                      // disabled={!isCaptchaValid}
                       disabled={false}
                       type="submit"
                       className="btn btn-primary"
@@ -163,8 +164,12 @@ const Login = () => {
                       </Link>
                     </small>
                   </p>
+                </form>
+                {/* social login */}
+                <div>
+                  <SocialLogin />
                 </div>
-              </form>
+              </div>
             </div>
           </div>
         </div>

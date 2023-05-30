@@ -34,8 +34,7 @@ const Navbar = () => {
  
       logout()
       .then(()=> {
-        setUser(null)
-        console.log('logout success');
+        setUser(null)      
         navigate('/')
       })
       .catch(()=> {
