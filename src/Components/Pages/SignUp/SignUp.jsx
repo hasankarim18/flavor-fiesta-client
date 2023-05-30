@@ -16,32 +16,52 @@ const SignUp = () => {
     const email = data.email
     const password = data.password 
 
+   
+     const url = import.meta.env.VITE_baseURL
+
+     console.log(url);
+    
+
     createUser(email, password)
     .then(result =>{
       const loggedUser = result.user 
-     updateUserProfile(loggedUser.name, loggedUser.photoURL)
+      //  update user in firebase user list
+     updateUserProfile(loggedUser.name, loggedUser.photoURL)     
      .then(()=> {
-        Swal.fire({
-          title:"User Profile Successfully Created"    
-        })
-        .then(()=> {
-          reset()
-          navigate('/')
-        })
+      console.log('firebase update completed');
+      // update user in my database 
+      const saveUser = {name:data.name, email:data.email }
+    
+       fetch(`${url}/users`, {
+         method: "POST",
+         headers: {
+           "Content-Type": "application/json",
+         },
+         body: JSON.stringify(saveUser),
+       })
+         .then((res) => res.json())
+         .then((data) => {
+           if (data.insertedId) {
+             Swal.fire({
+               title: "User Profile Successfully Created",
+             }).then(() => {
+               reset();
+               navigate("/");
+             });
+           }
+         })
+         .catch((error) => {
+           console.log("Update in my database erro" + error);
+         });
+      //  update user in my database end
+       
      }) 
      .catch((error)=> {
         console.log(error);
-     })
-
-
-    })
+     })    })
     .then(error => {
       console.log(error);
-    })
-
-
-  
-  
+    }) 
   }
 
 
@@ -67,7 +87,7 @@ const SignUp = () => {
                 {/* name */}
                 <div className="form-control">
                   <label className="label">
-                    <span className="label-text">Email</span>
+                    <span className="label-text">Name</span>
                   </label>
                   <input
                     {...register("name")}
@@ -80,7 +100,7 @@ const SignUp = () => {
                 {/* Photo url */}
                 <div className="form-control">
                   <label className="label">
-                    <span className="label-text">Email</span>
+                    <span className="label-text">Photo url</span>
                   </label>
                   <input
                     {...register("photourl")}

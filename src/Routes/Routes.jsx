@@ -52,7 +52,11 @@ const router = createBrowserRouter([
   },
   {
     path: "/dashboard",
-    element: <Dashboard />,
+    element: (
+      <PrivateRoutes>
+        <Dashboard />
+      </PrivateRoutes>
+    ),
     children: [
       {
         path: "/dashboard",
@@ -76,7 +80,7 @@ const router = createBrowserRouter([
       },
       {
         path: "/dashboard/payment-history",
-        element:<PaymentHistory />
+        element: <PaymentHistory />,
       },
     ],
   },
