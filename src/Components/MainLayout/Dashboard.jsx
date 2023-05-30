@@ -1,7 +1,12 @@
 import { Link, NavLink, Outlet } from "react-router-dom";
 import {  FaCalendarAlt, FaCalendarCheck, FaCartArrowDown, FaHamburger, FaHome, FaStackExchange, FaWallet } from "react-icons/fa";
+import useCart from "../../hooks/useCart";
 
 const Dashboard = () => {
+
+  const [cartResult] = useCart()
+  const cart = cartResult?.data?.data 
+
   return (
     <div className="bg-gray-200 max-w-screen-xl mx-auto  ">
       <div className="drawer drawer-mobile">
@@ -9,9 +14,9 @@ const Dashboard = () => {
         <div className="drawer-content flex flex-col items-center justify-center">
           <label
             htmlFor="my-drawer-2"
-            className="btn btn-primary drawer-button lg:hidden"
+            className="btn bg-aztecGold drawer-button lg:hidden"
           >
-            Open drawer
+            Open Menu
           </label>
           <Outlet />
         </div>
@@ -55,7 +60,14 @@ const Dashboard = () => {
                   {" "}
                   <FaCartArrowDown />{" "}
                 </span>{" "}
-                My Cart{" "}
+                My Cart <span className="ml-4
+                 p-4
+                  flex items-center justify-center
+                  bg-white
+                 text-aztecGold
+                 text-semibold
+                 rounded-full  
+                 w-8 h-8">{cart?.length}</span>
               </NavLink>
             </li>
             <li>

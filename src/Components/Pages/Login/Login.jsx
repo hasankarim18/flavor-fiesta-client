@@ -145,12 +145,15 @@ const Login = () => {
                   </div>
                   <div className="form-control mt-6">
                     <input
-                    //  disabled={!isCaptchaValid}
+                    // disabled={!isCaptchaValid}
+                      disabled={false}
                       type="submit"
                       className="btn btn-primary"
                       value="Login"
                     />
                   </div>
+
+                  <span>Todo {isCaptchaValid}</span>
 
                   <p className="text-xl">
                     <small>
