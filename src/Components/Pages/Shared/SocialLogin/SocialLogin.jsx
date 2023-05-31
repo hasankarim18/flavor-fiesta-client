@@ -38,7 +38,7 @@ const {googleSignIn} = useContext(AuthContext)
            })
              .then((res) => res.json())
              .then(() => {
-                console.log(result);
+              
                  navigate(from);
             //    if (data.insertedId) {
             //      Swal.fire({

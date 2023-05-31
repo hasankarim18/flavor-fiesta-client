@@ -1,6 +1,7 @@
 import { createContext, useEffect, useState } from "react";
 import app from "../../firebase.config";
 import { GoogleAuthProvider, createUserWithEmailAndPassword, getAuth, onAuthStateChanged, signInWithEmailAndPassword, signInWithPopup, signOut, updateProfile } from "firebase/auth";
+import axios from "axios";
 
 export const AuthContext = createContext()
 
@@ -10,6 +11,7 @@ export const AuthContext = createContext()
 const AuthProvider = ({children}) => {  
 const [user, setUser] = useState(null)
 const [loading, setLoading] = useState(true)
+const baseUrl = import.meta.env.VITE_baseURL;
 
 const auth = getAuth(app);
 
@@ -17,16 +19,27 @@ useEffect(() => {
   const unsubscribe = onAuthStateChanged(auth, (user) => {
     
     if (user) {
-      // User is signed in, see docs for a list of available properties
-      // https://firebase.google.com/docs/reference/js/auth.user
-      //  const uid = user.uid;
+     
       setLoading(false);
       setUser(user);
 
-      // ...
+      // get and set token 
+      if(user){
+         axios.post(`${baseUrl}/jwt`, { email: user.email })
+         .then((res)=> {
+          const token = res.data.token 
+          localStorage.setItem('access_token', token)
+          console.log(token);
+         })
+         .catch((error)=> {
+          console.log(error);
+         })
+      }
+    
     } else {
       // User is signed out
       // ...
+        localStorage.removeItem("access_token");
         setLoading(false);
     }
   });
@@ -34,7 +47,7 @@ useEffect(() => {
   return () => {
       return  unsubscribe()
   }
-}, [auth])
+}, [auth, baseUrl])
 
 
   const createUser = (email, password) => {
