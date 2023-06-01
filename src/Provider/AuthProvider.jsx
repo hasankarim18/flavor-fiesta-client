@@ -28,8 +28,9 @@ useEffect(() => {
          axios.post(`${baseUrl}/jwt`, { email: user.email })
          .then((res)=> {
           const token = res.data.token 
-          localStorage.setItem('access_token', token)
-          console.log(token);
+          localStorage.setItem('flavor_fiesta_access_token', token)
+          setLoading(false);
+      
          })
          .catch((error)=> {
           console.log(error);
@@ -39,8 +40,8 @@ useEffect(() => {
     } else {
       // User is signed out
       // ...
-        localStorage.removeItem("access_token");
-        setLoading(false);
+        localStorage.removeItem("flavor_fiesta_access_token");
+        
     }
   });
 

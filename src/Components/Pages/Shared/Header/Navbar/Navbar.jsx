@@ -1,17 +1,20 @@
-import { useContext, useEffect, useState } from 'react';
+import {  useEffect, useState } from 'react';
 import './Navbar.css'
 import { Link, useNavigate } from 'react-router-dom';
-import { AuthContext } from '../../../../../Provider/AuthProvider';
 import { FaCartArrowDown } from "react-icons/fa";
 import useCart from '../../../../../hooks/useCart';
+import useAdmin from '../../../../../hooks/useAdmin';
+import useAuth from '../../../../../hooks/useAuth';
 
 
 const Navbar = () => {
   const [scrollNav, setScrollNav] = useState(false)
-  const { logout, user, setUser } = useContext(AuthContext);
+  const { logout, user, setUser } = useAuth()
   const navigate = useNavigate()
-
   const [cart] = useCart();
+  const [isAdmin] = useAdmin()
+
+
 
   const cartData = cart?.data?.data
 
@@ -114,6 +117,17 @@ const Navbar = () => {
           <ul className="menu menu-horizontal px-1">{navOptions}</ul>
         </div>
         <div className="navbar-end">
+          {user?.displayName ? (
+            <span
+              className={`${
+                isAdmin ? "text-red-400 " : "text-black"
+              } mr-2 bg-white p-1 rounded font-semibold capitalize`}
+            >
+              {" "}
+              {user?.displayName}{" "}
+            </span>
+          ) : null}
+
           <a className="btn">Get started</a>
         </div>
       </div>

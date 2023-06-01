@@ -1,14 +1,18 @@
+/* eslint-disable react/no-unescaped-entities */
 import { Link, NavLink, Outlet } from "react-router-dom";
 import {  FaBars, FaCalendarAlt, FaCalendarCheck, FaCartArrowDown, FaHamburger, FaHome, FaStackExchange, FaUsersCog, FaUtensils, FaWallet } from "react-icons/fa";
 import useCart from "../../hooks/useCart";
+import useAdmin from "../../hooks/useAdmin";
+import useAuth from "../../hooks/useAuth";
 
 const Dashboard = () => {
-
+  const {user} = useAuth()
   const [cartResult] = useCart()
   const cart = cartResult?.data?.data 
 
   // TODO:  load data from the server to have dynamic isAdmin based on Data
-  const isAdmin = true;
+ // const isAdmin = true;
+  const [isAdmin] = useAdmin()
 
   return (
     <div className="bg-gray-200 max-w-screen-xl mx-auto  ">
@@ -30,6 +34,19 @@ const Dashboard = () => {
             id="sidebar"
             className="menu bg-aztecGold uppercase flex gap-4 text-xl p-4 w-80  text-base-content"
           >
+            <li>
+              <div className="flex flex-col bg-white">
+                {user?.displayName ? (
+                  <span className=" text-red-400  text-center ">
+                    {user?.displayName} <br />
+                    {isAdmin ? (
+                      <span className="text-blue-400">*admin*</span>
+                    ) : null}
+                  </span>
+                ) : null}
+              </div>
+            </li>
+
             {isAdmin ? (
               <>
                 <li>
@@ -58,19 +75,40 @@ const Dashboard = () => {
                   </NavLink>
                 </li>
                 <li>
-                  <NavLink to="/dashboard/mycart">
+                  <NavLink to="/dashboard/bookings">
                     <span>
                       <FaCartArrowDown />
                     </span>
                     Manage Bookings
                   </NavLink>
-                </li>               
+                </li>
                 <li>
                   <NavLink to="/dashboard/all-users">
                     <span>
                       <FaUsersCog />
                     </span>
                     All Users
+                  </NavLink>
+                </li>
+                <li>
+                  <NavLink to="/dashboard/mycart">
+                    <span>
+                      {" "}
+                      <FaCartArrowDown />{" "}
+                    </span>
+                    Admin's Cart
+                    <span
+                      className="ml-4
+                 p-4
+                  flex items-center justify-center
+                  bg-white
+                 text-aztecGold
+                 text-semibold
+                 rounded-full  
+                 w-8 h-8"
+                    >
+                      {cart?.length}
+                    </span>
                   </NavLink>
                 </li>
               </>

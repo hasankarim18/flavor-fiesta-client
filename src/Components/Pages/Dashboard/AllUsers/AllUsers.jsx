@@ -1,24 +1,27 @@
 import { useQuery } from "@tanstack/react-query";
 import { Helmet } from "react-helmet-async";
 import Swal from "sweetalert2";
+import useAxiosSecure from "../../../../hooks/useAxiosSecure";
+// import useAuth from "../../../../hooks/useAuth";
 
 
 const AllUsers = () => {
  // const [users, setUsers] = useState([])
-    
+   // const {user} = useAuth()
     const url = import.meta.env.VITE_baseURL;   
+    const axiosSecure = useAxiosSecure()
 
-  const { data, isLoading,  refetch } = useQuery(
-    ["users"],
-    async () => {
-      const res = await fetch(`${url}/users`);
-      return res.json();
-    }
-  );
+  const { data, isLoading, refetch } = useQuery({
+    queryKey: ["users",],
+    queryFn: async () => {
+      const response = await axiosSecure.get(`/users`);
 
-  const users = data?.data 
+      return response.data;
+    },
+  });
 
- // console.log(users);
+  const users = data?.data || []
+
 
   const makeAdmin = (id) => {
     fetch(`${url}/users/admin/${id}`, {
@@ -40,9 +43,10 @@ const AllUsers = () => {
   };
 
 
+
   // TODO   delete user
   const handleUserDelete = (id) => {
-
+      console.log('deleted user id', id)
   };
 
 
@@ -78,6 +82,9 @@ const AllUsers = () => {
                   </>
                 ) : (
                   <>
+                    {
+                      users.length === 0 && 'Forbidden access'
+                    }
                     {users.map((user, i) => {
                       return (
                         <tr key={user._id}>
