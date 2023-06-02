@@ -50,7 +50,7 @@ const Dashboard = () => {
             {isAdmin ? (
               <>
                 <li>
-                  <NavLink to="/dashboard/">
+                  <NavLink to="/dashboard/home">
                     {" "}
                     <span>
                       <FaHome />{" "}
@@ -59,15 +59,15 @@ const Dashboard = () => {
                   </NavLink>
                 </li>
                 <li>
-                  <NavLink to="/dashboard/add-item">
+                  <NavLink to="/dashboard/addItem">
                     <span>
                       <FaUtensils />
                     </span>
-                    Add Item
+                    Add an Item
                   </NavLink>
                 </li>
                 <li>
-                  <NavLink to="/dashboard/payment-history">
+                  <NavLink to="/dashboard/manageItem">
                     <span>
                       <FaBars />
                     </span>
@@ -75,7 +75,7 @@ const Dashboard = () => {
                   </NavLink>
                 </li>
                 <li>
-                  <NavLink to="/dashboard/bookings">
+                  <NavLink to="/dashboard/manage-bookings">
                     <span>
                       <FaCartArrowDown />
                     </span>
@@ -116,7 +116,7 @@ const Dashboard = () => {
               // normar user
               <>
                 <li>
-                  <NavLink to="/dashboard/">
+                  <NavLink to="/dashboard/home"> {/**or /dashboar/userHome */}
                     {" "}
                     <span>
                       <FaHome />{" "}

@@ -4,11 +4,12 @@ import useAxiosSecure from "./useAxiosSecure";
 
 
 const useAdmin = () => {
-    const {user} = useAuth() 
+    const {user, loading} = useAuth() 
     const axiosSecure = useAxiosSecure()
-
+    // use axios query with react query to inject header and authorization and refetch
     const {data:isAdmin , isLoading: isAdminLoading} = useQuery({
         queryKey:['isAdmin', user?.email],
+        enabled:!loading,
         queryFn: async ()=> {
             const res = await axiosSecure.get(`/users/admin/${user?.email}`);
            

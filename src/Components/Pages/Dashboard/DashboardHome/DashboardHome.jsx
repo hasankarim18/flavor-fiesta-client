@@ -3,7 +3,7 @@
 const DashboardHome = () => {
     return (
         <div>
-            Dashboard home
+            <h3 className="text-4xl">Dahsboard home</h3>
         </div>
     );
 };

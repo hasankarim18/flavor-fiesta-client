@@ -2,17 +2,19 @@ import { useQuery } from "@tanstack/react-query";
 import { Helmet } from "react-helmet-async";
 import Swal from "sweetalert2";
 import useAxiosSecure from "../../../../hooks/useAxiosSecure";
+import useAuth from "../../../../hooks/useAuth";
 // import useAuth from "../../../../hooks/useAuth";
 
 
 const AllUsers = () => {
  // const [users, setUsers] = useState([])
-   // const {user} = useAuth()
+    const {loading} = useAuth()
     const url = import.meta.env.VITE_baseURL;   
     const axiosSecure = useAxiosSecure()
 
   const { data, isLoading, refetch } = useQuery({
     queryKey: ["users",],
+    enabled:!loading,
     queryFn: async () => {
       const response = await axiosSecure.get(`/users`);
 

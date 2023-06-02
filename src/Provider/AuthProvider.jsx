@@ -17,10 +17,10 @@ const auth = getAuth(app);
 
 useEffect(() => {
   const unsubscribe = onAuthStateChanged(auth, (user) => {
-    
+  
     if (user) {
      
-      setLoading(false);
+    //  setLoading(false);
       setUser(user);
 
       // get and set token 

@@ -15,6 +15,10 @@ import AddReview from "../Components/Pages/Dashboard/AddReview/AddReview";
 import MyBookings from "../Components/Pages/Dashboard/MyBookings/MyBookings";
 import PaymentHistory from "../Components/Pages/Dashboard/PaymentHistory/PaymentHistory";
 import AllUsers from "../Components/Pages/Dashboard/AllUsers/AllUsers";
+import AddItem from "../Components/Pages/Dashboard/AddItem/AddItem";
+import ManageItem from "../Components/Pages/Dashboard/ManageItem/ManageItem";
+import ManageBookings from "../Components/Pages/Dashboard/ManageBookings/ManageBookings";
+import AdminRoute from "./AdminRoute";
 
 const router = createBrowserRouter([
   {
@@ -52,7 +56,7 @@ const router = createBrowserRouter([
     ],
   },
   {
-    path: "/dashboard",
+    path: "dashboard",
     element: (
       <PrivateRoutes>
         <Dashboard />
@@ -60,33 +64,49 @@ const router = createBrowserRouter([
     ),
     children: [
       {
-        path: "/dashboard",
+        path: "home",
         element: <DashboardHome />,
       },
       {
-        path: "/dashboard/mycart",
+        path: "mycart",
         element: <MyCart />,
       },
       {
-        path: "/dashboard/reservation",
+        path: "reservation",
         element: <Reservation />,
       },
       {
-        path: "/dashboard/add-review",
+        path: "add-review",
         element: <AddReview />,
       },
       {
-        path: "/dashboard/my-bookings",
+        path: "my-bookings",
         element: <MyBookings />,
       },
       {
-        path: "/dashboard/payment-history",
+        path: "manage-bookings",
+        element: <ManageBookings />,
+      },
+      {
+        path: "payment-history",
         element: <PaymentHistory />,
       },
       {
-        path:"/dashboard/all-users",
-        element:<AllUsers />
-      }
+        path: "all-users",
+        element: <AllUsers />,
+      },
+      {
+        path: "addItem",
+        element: (
+          <AdminRoute>
+            <AddItem />
+          </AdminRoute>
+        ),
+      },
+      {
+        path: "manageItem",
+        element: <ManageItem />,
+      },
     ],
   },
 ]);
