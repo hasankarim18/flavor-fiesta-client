@@ -5,7 +5,7 @@ import useAuth from "./useAuth";
 const useCart = () => {
   const { user, loading } = useAuth();
 
-  console.log(loading);
+ 
 
   // const token = localStorage.getItem("flavor_fiesta_access_token");
 
@@ -17,7 +17,7 @@ const useCart = () => {
     queryKey: ["cart", user?.email],
     enabled: !loading,
     queryFn: async () => {
-      console.log('load cart data');
+    
       const response = await axios.get(`/carts?email=${user?.email}`);
 
       return response.data;
