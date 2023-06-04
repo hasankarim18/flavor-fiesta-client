@@ -40,7 +40,7 @@ const MyCart = () => {
               title: "Deleted Successfully",
               icon: "success",
             });
-          }           
+          }          
         })
         .catch((error) => {
           console.log(error);

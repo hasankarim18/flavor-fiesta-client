@@ -16,6 +16,7 @@ const Order = () => {
 
   const [tabIndex, setTabIndex] = useState(initialIndex);
   const {data, dataLoading} = useMenu()
+
    const [desserts, setDesserts] = useState([]);
    const [pizza, setPizza] = useState([]);
    const [soup, setSoup] = useState([]);
@@ -24,11 +25,11 @@ const Order = () => {
 
    useEffect(() => {
      if (dataLoading === false) {
-       setDesserts(data.filter((menu) => menu.category === "dessert"));
-       setDrinks(data.filter((menu) => menu.category === "drinks"));
-       setSoup(data.filter((menu) => menu.category === "soup"));
-       setPizza(data.filter((menu) => menu.category === "pizza"));
-       setSalad(data.filter((menu) => menu.category === "salad"));
+       setDesserts(data?.data.filter((menu) => menu.category === "dessert"));
+       setDrinks(data?.data.filter((menu) => menu.category === "drinks"));
+       setSoup(data?.data.filter((menu) => menu.category === "soup"));
+       setPizza(data?.data.filter((menu) => menu.category === "pizza"));
+       setSalad(data?.data.filter((menu) => menu.category === "salad"));
      }
    }, [dataLoading, data]);
 

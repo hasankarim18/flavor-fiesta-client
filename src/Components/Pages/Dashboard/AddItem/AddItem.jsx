@@ -52,15 +52,17 @@ const AddItem = () => {
           const newItem = { name, price:parseFloat(price), category, recipe, image: imgUrl };
           // adding menu to the menu sending jwt using axios Secure and admin
           axiosSecure.post(`/menu`, newItem)
-          .then(data => {          
-           if(data.status === 200){
-           Swal.fire({
-             icon: "success",
-             title: `${name} added successfully`,
-           });
-           setMenuSubmitting(false)
-            reset()
-
+          .then(data => {    
+            console.log(data)      
+           if (data.data.insertedId) {
+             Swal.fire({
+               icon: "success",
+               title: `${name} added successfully`,
+               timer:1500,
+               position:'top-right'
+             });
+             setMenuSubmitting(false);
+             reset();
            }
             
           })
@@ -68,11 +70,10 @@ const AddItem = () => {
             console.log(error);
           })
          
-          console.log(newItem);
+        
         }
     })
 
-   // console.log(data);
   };
 
   
