@@ -2,6 +2,7 @@ import { Helmet } from "react-helmet-async";
 import useCart from "../../../../hooks/useCart";
 import { FaTrash } from "react-icons/fa";
 import Swal from "sweetalert2";
+import { Link } from "react-router-dom";
 
 
 const MyCart = () => {
@@ -62,7 +63,7 @@ const MyCart = () => {
           Total Price: {totalPrice.toFixed(2)}{" "}
         </h2>
         <div>
-          <button className="btn btn-md btn-warning">Pay</button>
+          <Link to="/dashboard/payment" className="btn btn-md btn-warning">Pay</Link>
         </div>
       </div>
       {/* cart table */}

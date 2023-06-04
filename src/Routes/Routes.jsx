@@ -19,6 +19,7 @@ import AddItem from "../Components/Pages/Dashboard/AddItem/AddItem";
 import ManageItem from "../Components/Pages/Dashboard/ManageItem/ManageItem";
 import ManageBookings from "../Components/Pages/Dashboard/ManageBookings/ManageBookings";
 import AdminRoute from "./AdminRoute";
+import Payment from "../Components/Pages/Dashboard/Payment/Payment";
 
 const router = createBrowserRouter([
   {
@@ -92,8 +93,16 @@ const router = createBrowserRouter([
         element: <PaymentHistory />,
       },
       {
+        path: "payment",
+        element: <Payment />,
+      },
+      {
         path: "all-users",
-        element: <AllUsers />,
+        element: (
+          <AdminRoute>
+            <AllUsers />
+          </AdminRoute>
+        ),
       },
       {
         path: "addItem",

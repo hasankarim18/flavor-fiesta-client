@@ -116,8 +116,9 @@ const Dashboard = () => {
               // normar user
               <>
                 <li>
-                  <NavLink to="/dashboard/home"> {/**or /dashboar/userHome */}
+                  <NavLink to="/dashboard/home">
                     {" "}
+                    {/**or /dashboar/userHome */}{" "}
                     <span>
                       <FaHome />{" "}
                     </span>{" "}
@@ -131,6 +132,16 @@ const Dashboard = () => {
                       <FaCalendarAlt />{" "}
                     </span>{" "}
                     Reservation
+                  </NavLink>
+                </li>
+
+                <li>
+                  <NavLink to="/dashboard/payment">
+                    {" "}
+                    <span>
+                      <FaWallet />{" "}
+                    </span>{" "}
+                    Payment
                   </NavLink>
                 </li>
                 <li>
