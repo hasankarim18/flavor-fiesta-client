@@ -4,6 +4,7 @@ import { useState } from "react";
 import useAxiosSecure from "../../../../hooks/useAxiosSecure";
 import useAuth from "../../../../hooks/useAuth";
 import Swal from "sweetalert2";
+import "./CheckoutForm.css";
 
 const CheckoutForm = ({ price, cart }) => {
   const stripe = useStripe();
@@ -16,10 +17,12 @@ const CheckoutForm = ({ price, cart }) => {
   const [transactionId, setTransactionId] = useState("");
 
   useEffect(() => {
-    axiosSecure.post("/create-payment-intent", { price }).then((res) => {
-      console.log(res.data.clientSecret);
-      setClientSecret(res.data.clientSecret);
-    });
+    if(price > 0){
+      axiosSecure.post("/create-payment-intent", { price }).then((res) => {
+        console.log(res.data.clientSecret);
+        setClientSecret(res.data.clientSecret);
+      });
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [price, axiosSecure]);
 
@@ -85,20 +88,21 @@ const CheckoutForm = ({ price, cart }) => {
         email: user?.email,
         transactionId: paymentIntent.id,
         price,
+        data: new Date(),
         quantity: cart.length,
-        itemName: cart.map((item) => item.name),
-        itemId: cart.map((item) => item._id),
+        cartItems: cart.map((item) => item._id),
+        menuItems: cart.map((item) => item.menuItemId),
+        itemName: cart.map(item => item.name),
+        status: "service pending",
       };
 
       axiosSecure.post("/payments", payment).then((res) => {
         console.log(res.data);
-        if (res.data.insertedId) {
+        if (res.data.insertResult.insertedId) {
           Swal.fire({
             title: "Payment Successful",
             icon: "success",
           });
-
-
         }
       });
     }
