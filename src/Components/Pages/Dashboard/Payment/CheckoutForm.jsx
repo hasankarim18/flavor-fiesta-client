@@ -3,31 +3,29 @@ import { useEffect } from "react";
 import { useState } from "react";
 import useAxiosSecure from "../../../../hooks/useAxiosSecure";
 import useAuth from "../../../../hooks/useAuth";
+import Swal from "sweetalert2";
 
-const CheckoutForm = ({ price }) => { 
+const CheckoutForm = ({ price, cart }) => {
   const stripe = useStripe();
   const elements = useElements();
-  const {user} = useAuth()
+  const { user } = useAuth();
   const [cardError, setCardError] = useState("");
-  const axiosSecure = useAxiosSecure()
-  const [clientSecret, setClientSecret] = useState('')
-  const [processing, setProcessing] = useState(false)
-  const [transactionId, setTransactionId] = useState('')
+  const axiosSecure = useAxiosSecure();
+  const [clientSecret, setClientSecret] = useState("");
+  const [processing, setProcessing] = useState(false);
+  const [transactionId, setTransactionId] = useState("");
 
   useEffect(() => {
     axiosSecure.post("/create-payment-intent", { price }).then((res) => {
-  //  console.log(res.data.clientSecret);
+      console.log(res.data.clientSecret);
       setClientSecret(res.data.clientSecret);
     });
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [price]);
-  
-  
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [price, axiosSecure]);
 
   const handleSubmit = async (event) => {
     // Block native form submission.
     event.preventDefault();
-   
 
     if (!stripe || !elements) {
       // Stripe.js has not loaded yet. Make sure to disable
@@ -45,7 +43,7 @@ const CheckoutForm = ({ price }) => {
     }
 
     // Use your card Element with other Stripe.js APIs
-    const { error, paymentMethod } = await stripe.createPaymentMethod({
+    const { error } = await stripe.createPaymentMethod({
       type: "card",
       card,
     });
@@ -55,37 +53,55 @@ const CheckoutForm = ({ price }) => {
       setCardError(error.message);
     } else {
       setCardError("");
-    //  console.log("[PaymentMethod#]", paymentMethod);
+      //  console.log("[PaymentMethod#]", paymentMethod);
     }
 
-    setProcessing(true)
-    const { paymentIntent, error:confirmError } = await stripe.confirmCardPayment(
-      clientSecret,
-      {
+    setProcessing(true);
+    const { paymentIntent, error: confirmError } =
+      await stripe.confirmCardPayment(clientSecret, {
         payment_method: {
           card: card,
           billing_details: {
-            email: user?.email || 'anonymous',
-            name: user?.displayName || 'No name'
+            email: user?.email || "anonymous",
+            name: user?.displayName || "No name",
           },
         },
-      }
-    );
+      });
 
-    if(confirmError){
-      console.log(confirmError)
-      return 
+    if (confirmError) {
+      console.log(confirmError);
+      return;
     }
-    setProcessing(false) // processing done
-    if (paymentIntent.status === "succeeded"){
-         setTransactionId(paymentIntent.id)
-         // Todo next
-       //  console.log("#payment intent-success", paymentIntent);
+    setProcessing(false); // processing done
+
+    console.log(paymentIntent);
+    if (paymentIntent.status === "succeeded") {
+      console.log('succeeded##');
+      setTransactionId(paymentIntent.id);
+      // Todo next
+      //  console.log("#payment intent-success", paymentIntent);
+      // save payment information to the server
+      const payment = {
+        email: user?.email,
+        transactionId: paymentIntent.id,
+        price,
+        quantity: cart.length,
+        itemName: cart.map((item) => item.name),
+        itemId: cart.map((item) => item._id),
+      };
+
+      axiosSecure.post("/payments", payment).then((res) => {
+        console.log(res.data);
+        if (res.data.insertedId) {
+          Swal.fire({
+            title: "Payment Successful",
+            icon: "success",
+          });
+
+
+        }
+      });
     }
-   
-    
-
-
   };
 
   return (
@@ -120,11 +136,11 @@ const CheckoutForm = ({ price }) => {
       <div className="mt-4 text-center text-xl text-red-400">
         {cardError && cardError}
       </div>
-      {
-        transactionId && <div className="text-green-500 text-xl mt-4" >
+      {transactionId && (
+        <div className="text-green-500 text-xl mt-4">
           Tansaction complete. Transaction id: {transactionId}
         </div>
-      }
+      )}
     </div>
   );
 };

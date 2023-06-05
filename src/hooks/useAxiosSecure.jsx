@@ -3,16 +3,19 @@ import { useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../Provider/AuthProvider";
 
+
+ const baseurl = import.meta.env.VITE_baseURL;
+
+ const axiosSecure = axios.create({
+   baseURL: baseurl,
+ });
+
 const useAxiosSecure = () => {
    const { logout } = useContext(AuthContext);
    const navigate = useNavigate()
 
    // creating axios instances
-   const baseurl = import.meta.env.VITE_baseURL
-
-   const axiosSecure = axios.create({
-     baseURL: baseurl,
-   });
+  
 
    useEffect(() => {
     // intercept before the request send
@@ -53,7 +56,7 @@ const useAxiosSecure = () => {
 
 
 
-   }, [axiosSecure, logout, navigate])
+   }, [ logout, navigate])
 
    return axiosSecure
    
