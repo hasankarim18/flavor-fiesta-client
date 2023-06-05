@@ -17,6 +17,8 @@ const MyCart = () => {
     return sum + item.price;
   }, 0);
 
+ // console.log(totalPrice);
+
   const cartDeleteHandler = (id)=> {
     Swal.fire({
       title: "Do you want to delete from cart?",

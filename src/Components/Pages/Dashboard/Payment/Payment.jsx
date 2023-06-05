@@ -8,8 +8,11 @@ import useCart from "../../../../hooks/useCart";
 const pk = import.meta.env.VITE_payment_gateway_pk;
  const stripePromise = loadStripe(pk);
 
+
+
 const Payment = () => {
 
+ 
   const [result] = useCart()
 
   const cart = result?.data?.data || [];

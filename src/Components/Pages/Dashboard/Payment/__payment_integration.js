@@ -15,5 +15,8 @@
  *  10. server - res.send the client side to the client side
  *  11. client = call payment intent api to get client secret and store it ina state
  *  12. client = useConfirmCardPayment api with client secret and card Info
+ *  13. display confirm card error
+ *  14. display confirm card success
+ *  15. do things after payment ---> 
  * 
  */
