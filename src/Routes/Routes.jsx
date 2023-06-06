@@ -9,7 +9,6 @@ import Secret from "../Components/Pages/Shared/Secret/Secret";
 import PrivateRoutes from "./PrivateRoutes";
 import Dashboard from "../Components/MainLayout/Dashboard";
 import MyCart from "../Components/Pages/Dashboard/MyCart/MyCart";
-import DashboardHome from "../Components/Pages/Dashboard/DashboardHome/DashboardHome";
 import Reservation from "../Components/Pages/Dashboard/Reservation/Reservation";
 import AddReview from "../Components/Pages/Dashboard/AddReview/AddReview";
 import MyBookings from "../Components/Pages/Dashboard/MyBookings/MyBookings";
@@ -20,6 +19,8 @@ import ManageItem from "../Components/Pages/Dashboard/ManageItem/ManageItem";
 import ManageBookings from "../Components/Pages/Dashboard/ManageBookings/ManageBookings";
 import AdminRoute from "./AdminRoute";
 import Payment from "../Components/Pages/Dashboard/Payment/Payment";
+import UserHome from "../Components/Pages/Dashboard/UserHome/UserHome";
+import AdminHome from "../Components/Pages/Dashboard/AdminHome/AdminHome";
 
 const router = createBrowserRouter([
   {
@@ -65,8 +66,8 @@ const router = createBrowserRouter([
     ),
     children: [
       {
-        path: "home",
-        element: <DashboardHome />,
+        path: "userhome",
+        element: <UserHome />
       },
       {
         path: "mycart",
@@ -95,6 +96,11 @@ const router = createBrowserRouter([
       {
         path: "payment",
         element: <Payment />,
+      },
+      // admin route
+      {
+        path:"adminhome",
+        element:<AdminRoute> <AdminHome /> </AdminRoute>
       },
       {
         path: "all-users",

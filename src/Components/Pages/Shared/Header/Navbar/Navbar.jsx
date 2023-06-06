@@ -14,6 +14,11 @@ const Navbar = () => {
   const [cart] = useCart();
   const [isAdmin] = useAdmin()
 
+   let truncatedName = user?.displayName || "";
+   if (truncatedName.length > 6) {
+     truncatedName = truncatedName.slice(0, 6);
+   }
+
 
 
   const cartData = cart?.data?.data
@@ -57,12 +62,16 @@ const Navbar = () => {
           <Link to="/menu">Our Menu</Link>
         </li>
         <li>
-          <Link to="/secret">Secret</Link>
-        </li>
-
-        <li>
           <Link to="/order/salad">Order Food</Link>
         </li>
+        {user && (
+          <li>
+            <Link to={isAdmin ? "/dashboard/adminhome" : "/dashboard/userhome"}>
+              Dashboard
+            </Link>
+          </li>
+        )}
+
         <li>
           {user ? (
             <button className="btn btn-ghost" onClick={handleLogout}>
@@ -73,7 +82,7 @@ const Navbar = () => {
           )}
         </li>
         <li className="flex items-center text-xl">
-          <Link to="/dashboard/mycart" className="badge badge-secondary " >
+          <Link to="/dashboard/mycart" className="badge badge-secondary ">
             <FaCartArrowDown className="text-2xl" />{" "}
             <span>{cartData?.length}</span>
           </Link>
@@ -123,8 +132,7 @@ const Navbar = () => {
                 isAdmin ? "text-red-400 " : "text-black"
               } mr-2 bg-white p-1 rounded font-semibold capitalize`}
             >
-              {" "}
-              {user?.displayName}{" "}
+              {truncatedName}
             </span>
           ) : null}
 
