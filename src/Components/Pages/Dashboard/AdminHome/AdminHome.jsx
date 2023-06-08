@@ -3,7 +3,7 @@ import useAdmin from "../../../../hooks/useAdmin";
 import useAuth from "../../../../hooks/useAuth";
 import {  FaShieldAlt } from "react-icons/fa";
 import useAxiosSecure from "../../../../hooks/useAxiosSecure";
-import { useEffect } from "react";
+
 
 
 const AdminHome = () => {
@@ -12,7 +12,7 @@ const AdminHome = () => {
     const axiosSecure = useAxiosSecure()
 
 
-    const {data: stats , isLoading} = useQuery({
+    const {data: stats } = useQuery({
       queryKey:['admin-stats'],
       queryFn: async ()=> {
        
